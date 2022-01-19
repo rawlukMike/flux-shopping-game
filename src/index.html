@@ -9,9 +9,77 @@
     <title>Trihorse Shopping Game</title>
 </head>
 <body>
-    
-    <script>
-        kaboom()
+    <div id="game"></div>
+    <script type="module">
+        import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
+        kaboom({
+            background: [ 234, 0, 41],
+        });
+        loadSprite("player", "../src/sprites/main_sprite.png");
+        loadSprite("floor", "../src/sprites/floor.png");
+
+        scene("main", (levelIdx) => {
+            const shop = 
+                [
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                    "+========================",
+                ];
+            addLevel(shop, {
+                width: 45,
+                height: 45,
+                pos: vec2(400,300),
+                "=": () => [
+                    sprite("floor"),
+                    area(),
+                ],
+                "+": () => [
+                    sprite("floor"),
+                    area(),
+                    solid(),
+                ],
+                "@": () => [
+                    sprite("player"),
+                    area(),
+                    solid(),
+                ],
+            })
+            const player = add([
+	        sprite("player"),
+	        pos(center()),
+            area(),
+            scale(2),
+        ]);
+            const SPEED = 320;
+        onKeyDown("left", () => {
+	        player.move(-SPEED, 0)
+        })
+        onKeyDown("right", () => {
+	        player.move(SPEED, 0)
+        })
+        onKeyDown("up", () => {
+	        player.move(0, -SPEED)
+        })
+        onKeyDown("down", () => {
+	        player.move(0, SPEED)
+        })
+        add([
+            pos(24, 24),
+            text("TRIHORSE \nSHOPPING GAME", {
+                size: 48,
+                width: 600,
+                font: "sink",
+            }),
+        ])
+        });
+        go("main", 0);
     </script>
 </body>
 </html>
