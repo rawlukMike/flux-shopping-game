@@ -14,7 +14,7 @@ steps:
 
 - task: AzureFileCopy@4
   inputs:
-    SourcePath: '$(build.sourcesdirectory)\src'
+    SourcePath: '$(build.sourcesdirectory)/src/**'
     azureSubscription: 'Pay-As-You-Go(ec9a802e-db02-40bd-859a-896cbd6a834a)'
     Destination: 'AzureBlob'
     storage: 'fuxdesign'
