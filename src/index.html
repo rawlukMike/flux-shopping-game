@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/styles/style.css">
+    <script src="https://unpkg.com/kaboom/dist/kaboom.js"></script>
+    <title>Trihorse Shopping Game</title>
+</head>
+<body>
+    <div id="game"></div>
+    <script type="module">
+        import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
+        kaboom({
+            background: [ 234, 0, 41],
+        });
+        loadSprite("player", "../src/sprites/main_sprite.png");
+        loadSprite("floor", "../src/sprites/floor.png");
+        loadSprite("horizontalWallTop", "../src/sprites/horizontal-wall-bottom.png");
+        loadSprite("horizontalWallBottom", "../src/sprites/horizontal-wall-top.png");
+        loadSprite("verticalWallLeft", "../src/sprites/vertical-wall-right.png");
+        loadSprite("verticalWallRight", "../src/sprites/vertical-wall-left.png");
+        loadSprite("cornerBR", "../src/sprites/corner-bottom-right.png");
+        loadSprite("cornerBL", "../src/sprites/corner-bottom-left.png");
+        loadSprite("cornerTR", "../src/sprites/corner-top-right.png");
+        loadSprite("cornerTL", "../src/sprites/corner-top-left.png");
+        loadSprite("furnitureLeft", "../src/sprites/furniture-left-part.png");
+        loadSprite("furnitureRight", "../src/sprites/furniture-right-part.png");
+
+        scene("main", (levelIdx) => {
+            const shop = 
+                [
+                    ",________________________.",
+                    "|========================!",
+                    "|========================!",
+                    "|========================!",
+                    "|==============#&========!",
+                    "|========================!",
+                    "|========================!",
+                    "|========================!",
+                    "|========================!",
+                    "|========================!",
+                    "<------------------------>",
+                ];
+            addLevel(shop, {
+                width: 45,
+                height: 45,
+                pos: vec2(400,300),
+                "=": () => [
+                    sprite("floor"),
+                    area(),
+                ],
+                "|": () => [
+                    sprite("verticalWallLeft"),
+                    area(),
+                    solid(),
+                ],
+                "!": () => [
+                    sprite("verticalWallRight"),
+                    area(),
+                    solid(),
+                ],
+                "-": () => [
+                    sprite("horizontalWallBottom"),
+                    area(),
+                    solid(),
+                ],
+                "_": () => [
+                    sprite("horizontalWallTop"),
+                    area(),
+                    solid(),
+                ],
+                ".": () => [
+                    sprite("cornerBR"),
+                    area(),
+                    solid(),
+                ],
+                ",": () => [
+                    sprite("cornerBL"),
+                    area(),
+                    solid(),
+                ],
+                ">": () => [
+                    sprite("cornerTR"),
+                    area(),
+                    solid(),
+                ],
+                "<": () => [
+                    sprite("cornerTL"),
+                    area(),
+                    solid(),
+                ],
+                "#": () => [
+                    sprite("furnitureLeft"),
+                    area(),
+                    solid(),
+                ],
+                "&": () => [
+                    sprite("furnitureRight"),
+                    area(),
+                    solid(),
+                ],
+                "@": () => [
+                    sprite("player"),
+                    area(),
+                    solid(),
+                ],
+            })
+            const player = add([
+	        sprite("player"),
+	        pos(500,680),
+            solid(),
+            area(),
+            scale(2),
+        ]);
+            const SPEED = 320;
+        onKeyDown("left", () => {
+	        player.move(-SPEED, 0)
+        })
+        onKeyDown("right", () => {
+	        player.move(SPEED, 0)
+        })
+        onKeyDown("up", () => {
+	        player.move(0, -SPEED)
+        })
+        onKeyDown("down", () => {
+	        player.move(0, SPEED)
+        })
+        add([
+            pos(24, 24),
+            text("TRIHORSE \nSHOPPING GAME", {
+                size: 48,
+                width: 600,
+                font: "sink",
+            }),
+        ])
+        });
+        go("main", 0);
+    </script>
+</body>
+</html>
