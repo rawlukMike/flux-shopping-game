@@ -1,0 +1,21 @@
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- dev
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Detected changes on dev branch, deploying!
+  displayName: 'Info Msg'
+
+- task: AzureFileCopy@4
+  inputs:
+    SourcePath: 'src/*'
+    azureSubscription: 'Pay-As-You-Go(ec9a802e-db02-40bd-859a-896cbd6a834a)'
+    Destination: 'AzureBlob'
+    storage: 'fuxdesign'
+    ContainerName: '$web'
