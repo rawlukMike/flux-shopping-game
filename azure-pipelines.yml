@@ -19,3 +19,4 @@ steps:
     Destination: 'AzureBlob'
     storage: 'fuxdesign'
     ContainerName: '$web'
+    CleanTargetBeforeCopy: true
