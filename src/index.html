@@ -9,7 +9,9 @@
     <title>Trihorse Shopping Game</title>
 </head>
 <body>
-    <div id="game"></div>
+    <div id="game" class="hide">
+        <div class="exit"><span id="quit">X</span></div>
+    </div>
     <script type="module">
         import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
         kaboom({
@@ -17,60 +19,87 @@
         });
         loadSprite("player", "sprites/main_sprite.png");
         loadSprite("floor", "sprites/floor.png");
-        loadSprite("horizontalWallTop", "sprites/horizontal-wall-bottom.png");
-        loadSprite("horizontalWallBottom", "sprites/horizontal-wall-top.png");
-        loadSprite("verticalWallLeft", "sprites/vertical-wall-right.png");
-        loadSprite("verticalWallRight", "sprites/vertical-wall-left.png");
-        loadSprite("cornerBR", "sprites/corner-bottom-right.png");
+        loadSprite("floor2", "sprites/floor2.png");
+        loadSprite("wall", "sprites/wall.png");
+        loadSprite("lada", "sprites/Lada.png");
+
+        loadSprite("wall_flower", "sprites/wall_flower.png");
+        loadSprite("flower", "sprites/flower.png");
+        loadSprite("info", "sprites/info.png");
+        loadSprite("dywan", "sprites/dywan.png");
+
+
+        loadSprite("ramka_lewy", "sprites/ramka_lewy.png");
+        loadSprite("ramka_prawy", "sprites/ramka_prawy.png");
+        loadSprite("ramka_bot", "sprites/ramka_bot.png");
+        loadSprite("ramka_top", "sprites/ramka_gora.png");
+
         loadSprite("cornerBL", "sprites/corner-bottom-left.png");
-        loadSprite("cornerTR", "sprites/corner-top-right.png");
-        loadSprite("cornerTL", "sprites/corner-top-left.png");
-        loadSprite("furnitureLeft", "sprites/furniture-left-part.png");
-        loadSprite("furnitureRight", "sprites/furniture-right-part.png");
+        loadSprite("cornerBR", "sprites/corner-bottom-right.png");
+
+        loadSprite("furniture1", "sprites/furniture1.png");
+        loadSprite("furniture2", "sprites/furniture2.png");
+        loadSprite("furniture3", "sprites/furniture3.png");
+        loadSprite("furniture4", "sprites/furniture4.png");
+        loadSprite("furniture5", "sprites/furniture5.png");
+        loadSprite("furniture6", "sprites/furniture6.png");
 
         scene("main", (levelIdx) => {
             const shop = 
                 [
-                    ",________________________.",
-                    "|========================!",
-                    "|========================!",
-                    "|========================!",
-                    "|==============#&========!",
-                    "|========================!",
-                    "|========================!",
-                    "|========================!",
-                    "|========================!",
-                    "|========================!",
-                    "<------------------------>",
+                    "/////////////////",
+                    "|+++++++++++++++-",
+                    "|+++++++++++++++-",
+                    "|+++++++++++++++-",
+                    "|&&&&&&&&&&&&&&&-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    "|===============-", //17 elementów
+                    ",_______________.", //17 elementów
+
                 ];
             addLevel(shop, {
-                width: 45,
-                height: 45,
+                width: 25,
+                height: 25,
                 pos: vec2(400,300),
                 "=": () => [
                     sprite("floor"),
                     area(),
                 ],
                 "|": () => [
-                    sprite("verticalWallLeft"),
+                    sprite("ramka_lewy"),
                     area(),
                     solid(),
                 ],
-                "!": () => [
-                    sprite("verticalWallRight"),
+                "+": () => [
+                    sprite("wall"),
                     area(),
                     solid(),
                 ],
                 "-": () => [
-                    sprite("horizontalWallBottom"),
+                    sprite("ramka_prawy"),
                     area(),
                     solid(),
                 ],
                 "_": () => [
-                    sprite("horizontalWallTop"),
+                    sprite("ramka_bot"),
                     area(),
                     solid(),
                 ],
+                "/": () => [
+                    sprite("ramka_bot"),
+                    area(),
+                    solid(),
+                ],
+
                 ".": () => [
                     sprite("cornerBR"),
                     area(),
@@ -97,9 +126,8 @@
                     solid(),
                 ],
                 "&": () => [
-                    sprite("furnitureRight"),
+                    sprite("floor2"),
                     area(),
-                    solid(),
                 ],
                 "@": () => [
                     sprite("player"),
@@ -107,14 +135,116 @@
                     solid(),
                 ],
             })
-            const player = add([
+            const dywan = add([
+	        sprite("dywan"),
+	        pos(vec2(475,650)),
+            area(),
+        ]);
+        const player = add([
 	        sprite("player"),
-	        pos(500,680),
+	        pos(vec2(425,600)),
             solid(),
             area(),
-            scale(2),
+            scale(1),
+            "player"
         ]);
-            const SPEED = 320;
+        const mebel = add([
+	        sprite("furniture1"),
+	        pos(vec2(600,550)),
+            solid(),
+            area(),
+            "szafka",
+        ]);
+        const mebel2 = add([
+	        sprite("furniture2"),
+	        pos(vec2(775,550)),
+            solid(),
+            area(),
+            "szafka",
+        ]);
+        const mebel3 = add([
+	        sprite("furniture3"),
+	        pos(vec2(700,550)),
+            solid(),
+            area(),
+            "szafka",
+        ]);
+        const mebel4 = add([
+	        sprite("furniture4"),
+	        pos(vec2(550,375)),
+            solid(),
+            area(),
+            "szafka",
+        ]);
+        const mebel5 = add([
+	        sprite("furniture5"),
+	        pos(vec2(550,325)),
+            area(),
+        ]);
+        const mebel6 = add([
+	        sprite("furniture5"),
+	        pos(vec2(600,350)),
+            area(),
+        ]);
+        const mebel7 = add([
+	        sprite("furniture6"),
+	        pos(vec2(700,350)),
+            area(),
+            solid(),
+            "szafka",
+        ]);
+        const flower = add([
+	        sprite("flower"),
+	        pos(vec2(525,375)),
+            solid(),
+            area(),
+        ]);
+        const flower2 = add([
+	        sprite("flower"),
+	        pos(vec2(625,375)),
+            solid(),
+            area(),
+        ]);
+        const lada = add([
+	        sprite("lada"),
+	        pos(vec2(425,375)),
+            solid(),
+            area(),
+            "lada",
+        ]);
+        const info = add([
+	        sprite("info"),
+	        pos(vec2(475,350)),
+            area(),
+        ]);
+        const wall_flower = add([
+	        sprite("wall_flower"),
+	        pos(vec2(425,325)),
+            area(),
+        ]);
+
+        const popup = document.getElementById("game");
+        const quit = document.getElementById("quit");
+
+        quit.addEventListener("click", () =>{
+            hidePopup();
+        })
+
+        function showPopup(){
+            popup.className = "show";
+        }
+        function hidePopup(){
+            popup.className = "hide"; 
+        }
+
+        
+        onCollide("player", "szafka", () =>{
+                showPopup();
+        })
+
+
+
+        const SPEED = 320;
         onKeyDown("left", () => {
 	        player.move(-SPEED, 0)
         })
