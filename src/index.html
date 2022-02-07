@@ -15,14 +15,41 @@
     <script type="module">
         import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
         kaboom({
+            scale: 2,
             background: [ 234, 0, 41],
         });
         loadSprite("player", "sprites/main_sprite.png");
+        loadSprite("player2", "sprites/main_sprite3.png", {
+            sliceX: 21,
+            anims: {
+                "idle": {
+                    from: 0,
+                    to: 6,
+                    speed: 5,
+                    loop: true,
+                },
+                "idle-back": {
+                    from: 7,
+                    to: 13,
+                    speed: 5,
+                    loop: true,
+                },
+                "run": {
+                    from: 14,
+                    to: 20,
+                    speed: 5,
+                    loop: true,
+                }
+            }
+        });
+
+
         loadSprite("floor", "sprites/floor.png");
         loadSprite("floor2", "sprites/floor2.png");
         loadSprite("floor3", "sprites/floor3.png");
         loadSprite("wall", "sprites/wall.png");
-        loadSprite("lada", "sprites/Lada.png");
+        loadSprite("lada", "sprites/Lada_new.png");
+        loadSprite("lada_shadow", "sprites/lada_shadow.png");
 
         loadSprite("wall_flower", "sprites/wall_flower.png");
         loadSprite("flower", "sprites/flower.png");
@@ -69,7 +96,7 @@
             addLevel(shop, {
                 width: 25,
                 height: 25,
-                pos: vec2(400,300),
+                pos: vec2(300,100),
                 "=": () => [
                     sprite("floor"),
                     area(),
@@ -120,11 +147,6 @@
                     area(),
                     solid(),
                 ],
-                "#": () => [
-                    sprite("furnitureLeft"),
-                    area(),
-                    solid(),
-                ],
                 "&": () => [
                     sprite("floor2"),
                     area(),
@@ -133,97 +155,97 @@
                     sprite("floor3"),
                     area(),
                 ],
-                "@": () => [
-                    sprite("player"),
-                    area(),
-                    solid(),
-                ],
             })
             const dywan = add([
 	        sprite("dywan"),
-	        pos(vec2(475, 575)),
+	        pos(vec2(375, 375)),
+            area(),
+        ]);
+        const lada_shadow = add([
+	        sprite("lada_shadow"),
+	        pos(vec2(325,200)),
             area(),
         ]);
         const player = add([
-	        sprite("player"),
-	        pos(vec2(425,600)),
-            solid(),
+	        sprite("player2"),
+	        pos(vec2(325,400)),
+            gravity(0),
             area(),
-            scale(1),
+            body(),
             "player"
         ]);
         const mebel = add([
 	        sprite("furniture1"),
-	        pos(vec2(575,475)),
+	        pos(vec2(475,275)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel2 = add([
 	        sprite("furniture2"),
-	        pos(vec2(775,475)),
+	        pos(vec2(675,275)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel3 = add([
 	        sprite("furniture3"),
-	        pos(vec2(675,475)),
+	        pos(vec2(575,275)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel4 = add([
 	        sprite("furniture4"),
-	        pos(vec2(550,375)),
+	        pos(vec2(450,175)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel5 = add([
 	        sprite("furniture5"),
-	        pos(vec2(550,325)),
+	        pos(vec2(450,125)),
             area(),
         ]);
         const mebel6 = add([
 	        sprite("furniture5"),
-	        pos(vec2(600,350)),
+	        pos(vec2(500,150)),
             area(),
         ]);
         const mebel7 = add([
 	        sprite("furniture6"),
-	        pos(vec2(700,350)),
+	        pos(vec2(600,150)),
             area(),
             solid(),
             "szafka",
         ]);
         const flower = add([
 	        sprite("flower"),
-	        pos(vec2(525,375)),
+	        pos(vec2(425,175)),
             solid(),
             area(),
         ]);
         const flower2 = add([
 	        sprite("flower"),
-	        pos(vec2(625,375)),
+	        pos(vec2(525,175)),
             solid(),
             area(),
         ]);
         const lada = add([
 	        sprite("lada"),
-	        pos(vec2(425,375)),
+	        pos(vec2(325,175)),
             solid(),
             area(),
             "lada",
         ]);
         const info = add([
 	        sprite("info"),
-	        pos(vec2(475,350)),
+	        pos(vec2(375,150)),
             area(),
         ]);
         const wall_flower = add([
 	        sprite("wall_flower"),
-	        pos(vec2(425,325)),
+	        pos(vec2(325,125)),
             area(),
         ]);
 
@@ -242,29 +264,58 @@
         }
 
         
+        //player.play("idle");
+        player.onGround(() => {
+            if(!isKeyDown("left") && !isKeyDown("right")) {
+                player.play("run");
+            }
+            else {
+                player.play("idle");
+            }
+        })
+
         onCollide("player", "szafka", () =>{
                 showPopup();
         })
 
 
 
-        const SPEED = 320;
+        const SPEED = 100;
         onKeyDown("left", () => {
 	        player.move(-SPEED, 0)
+            player.flipX(false)
+            if (player.isGrounded() || player.curAnim() !== "run") {
+		        player.play("run")
+	        }
         })
         onKeyDown("right", () => {
 	        player.move(SPEED, 0)
+            player.flipX(true)
+            if (player.isGrounded() || player.curAnim() !== "run") {
+		        player.play("run")
+	        }
         })
         onKeyDown("up", () => {
-	        player.move(0, -SPEED)
+	        player.move(0, -SPEED);
+            if (player.isGrounded() || player.curAnim() !== "idle-back") {
+                player.play("idle-back");
+	        }
         })
         onKeyDown("down", () => {
-	        player.move(0, SPEED)
+	        player.move(0, SPEED);
+            if (player.isGrounded() || player.curAnim() !== "idle") {
+                player.play("idle");
+	        }
+        })
+        onKeyRelease(["left", "right"], () => {
+            if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
+                player.play("idle")
+            }
         })
         add([
-            pos(24, 24),
+            pos(325, 24),
             text("TRIHORSE \nSHOPPING GAME", {
-                size: 48,
+                size: 38,
                 width: 600,
                 font: "sink",
             }),
