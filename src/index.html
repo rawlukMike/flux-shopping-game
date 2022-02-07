@@ -20,6 +20,7 @@
         loadSprite("player", "sprites/main_sprite.png");
         loadSprite("floor", "sprites/floor.png");
         loadSprite("floor2", "sprites/floor2.png");
+        loadSprite("floor3", "sprites/floor3.png");
         loadSprite("wall", "sprites/wall.png");
         loadSprite("lada", "sprites/Lada.png");
 
@@ -36,6 +37,8 @@
 
         loadSprite("cornerBL", "sprites/corner-bottom-left.png");
         loadSprite("cornerBR", "sprites/corner-bottom-right.png");
+        loadSprite("cornerTL", "sprites/corner-top-left.png");
+        loadSprite("cornerTR", "sprites/corner-top-right.png");
 
         loadSprite("furniture1", "sprites/furniture1.png");
         loadSprite("furniture2", "sprites/furniture2.png");
@@ -47,22 +50,19 @@
         scene("main", (levelIdx) => {
             const shop = 
                 [
-                    "/////////////////",
+                    "<///////////////>",
                     "|+++++++++++++++-",
                     "|+++++++++++++++-",
                     "|+++++++++++++++-",
                     "|&&&&&&&&&&&&&&&-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
-                    "|===============-", //17 elementów
+                    "|;==============-", //17 elementów
+                    "|;==============-", //17 elementów
+                    "|;==============-", //17 elementów
+                    "|;==============-", //17 elementów
+                    "|;==============-", //17 elementów
+                    "|;==============-", //17 elementów
+                    "|;==============-", //17 elementów
+                    "|;==============-", //17 elementów
                     ",_______________.", //17 elementów
 
                 ];
@@ -95,7 +95,7 @@
                     solid(),
                 ],
                 "/": () => [
-                    sprite("ramka_bot"),
+                    sprite("ramka_top"),
                     area(),
                     solid(),
                 ],
@@ -129,6 +129,10 @@
                     sprite("floor2"),
                     area(),
                 ],
+                ";": () => [
+                    sprite("floor3"),
+                    area(),
+                ],
                 "@": () => [
                     sprite("player"),
                     area(),
@@ -137,7 +141,7 @@
             })
             const dywan = add([
 	        sprite("dywan"),
-	        pos(vec2(475,650)),
+	        pos(vec2(475, 575)),
             area(),
         ]);
         const player = add([
@@ -150,21 +154,21 @@
         ]);
         const mebel = add([
 	        sprite("furniture1"),
-	        pos(vec2(600,550)),
+	        pos(vec2(575,475)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel2 = add([
 	        sprite("furniture2"),
-	        pos(vec2(775,550)),
+	        pos(vec2(775,475)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel3 = add([
 	        sprite("furniture3"),
-	        pos(vec2(700,550)),
+	        pos(vec2(675,475)),
             solid(),
             area(),
             "szafka",
