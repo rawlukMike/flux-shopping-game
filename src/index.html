@@ -9,14 +9,33 @@
     <title>Trihorse Shopping Game</title>
 </head>
 <body>
-    <div id="game" class="hide">
-        <div class="exit"><span id="quit">X</span></div>
+    <div class="main">
+        <div class="container">
+            <div id="shop-popup" class="hide">
+                <div class="exit"><span id="quit">X</span></div>
+                <div class="items">
+                    <div class="el" element="1">A</div>
+                    <div class="el" element="2">B</div>
+                    <div class="el" element="3">C</div>
+                </div>
+            </div>
+        </div>
+        <div class="game-container">
+            <canvas id="game"></canvas>
+        </div>
+        <div class="container">
+            <div class="eq"></div>
+        </div>
     </div>
+
     <script type="module">
         import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
         kaboom({
             scale: 2,
             background: [ 234, 0, 41],
+            width: 450,
+            height: 450,
+            canvas: document.querySelector("#game"),
         });
         loadSprite("player", "sprites/main_sprite.png");
         loadSprite("player2", "sprites/main_sprite3.png", {
@@ -96,7 +115,7 @@
             addLevel(shop, {
                 width: 25,
                 height: 25,
-                pos: vec2(300,100),
+                pos: vec2(0,100),
                 "=": () => [
                     sprite("floor"),
                     area(),
@@ -158,17 +177,17 @@
             })
             const dywan = add([
 	        sprite("dywan"),
-	        pos(vec2(375, 375)),
+	        pos(vec2(75, 375)),
             area(),
         ]);
         const lada_shadow = add([
 	        sprite("lada_shadow"),
-	        pos(vec2(325,200)),
+	        pos(vec2(25,200)),
             area(),
         ]);
         const player = add([
 	        sprite("player2"),
-	        pos(vec2(325,400)),
+	        pos(vec2(25,400)),
             gravity(0),
             area(),
             body(),
@@ -176,80 +195,80 @@
         ]);
         const mebel = add([
 	        sprite("furniture1"),
-	        pos(vec2(475,275)),
+	        pos(vec2(175,275)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel2 = add([
 	        sprite("furniture2"),
-	        pos(vec2(675,275)),
+	        pos(vec2(375,275)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel3 = add([
 	        sprite("furniture3"),
-	        pos(vec2(575,275)),
+	        pos(vec2(275,275)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel4 = add([
 	        sprite("furniture4"),
-	        pos(vec2(450,175)),
+	        pos(vec2(150,175)),
             solid(),
             area(),
             "szafka",
         ]);
         const mebel5 = add([
 	        sprite("furniture5"),
-	        pos(vec2(450,125)),
+	        pos(vec2(150,125)),
             area(),
         ]);
         const mebel6 = add([
 	        sprite("furniture5"),
-	        pos(vec2(500,150)),
+	        pos(vec2(200,150)),
             area(),
         ]);
         const mebel7 = add([
 	        sprite("furniture6"),
-	        pos(vec2(600,150)),
+	        pos(vec2(300,150)),
             area(),
             solid(),
             "szafka",
         ]);
         const flower = add([
 	        sprite("flower"),
-	        pos(vec2(425,175)),
+	        pos(vec2(125,175)),
             solid(),
             area(),
         ]);
         const flower2 = add([
 	        sprite("flower"),
-	        pos(vec2(525,175)),
+	        pos(vec2(225,175)),
             solid(),
             area(),
         ]);
         const lada = add([
 	        sprite("lada"),
-	        pos(vec2(325,175)),
+	        pos(vec2(25,175)),
             solid(),
             area(),
             "lada",
         ]);
         const info = add([
 	        sprite("info"),
-	        pos(vec2(375,150)),
+	        pos(vec2(75,150)),
             area(),
         ]);
         const wall_flower = add([
 	        sprite("wall_flower"),
-	        pos(vec2(325,125)),
+	        pos(vec2(25,125)),
             area(),
-        ]);
+        ]);    
 
-        const popup = document.getElementById("game");
+        const popup = document.getElementById("shop-popup");
         const quit = document.getElementById("quit");
 
         quit.addEventListener("click", () =>{
@@ -313,7 +332,7 @@
             }
         })
         add([
-            pos(325, 24),
+            pos(25, 24),
             text("TRIHORSE \nSHOPPING GAME", {
                 size: 38,
                 width: 600,

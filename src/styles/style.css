@@ -1,33 +1,81 @@
 *{
     margin: 0;
+}
+html, body{
+    height: 100%;
+}
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: cadetblue;
+    margin: 0;
     padding: 0;
 }
-#game{
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    background-color: #EA0029;
+}
+.game-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EA0029;
+    width: 50%;
+    height: 100%;
+}
+#shop-popup{
     border: 4px solid black;
-    position: fixed;
-    height: 300px;
+    margin-top: 200px;
+    height: 500px;
     width: 400px;
-    margin: 350px 100px;
     background-color: #fff;
 }
-.show{
+.items{
+    padding-top: 60px;
+}
+.el{
     display: block;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    margin: 15px;
+    text-align: center;
+    background-color: blueviolet;
+}
+.eq{
+    border: 4px solid black;
+    margin-top: 200px;
+    height: 300px;
+    width: 300px;
+    background-color: #fff;
+}
+.exit{
+    display: block;
+    height: 60px;
+    width: 60px;
+    background-color: red;
+    float: right;
+    text-align: center;
+}
+#quit{
+    display: block;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 52px;
+    width: 100%;
+    height: 100%;
 }
 .hide{
     display: none;
 }
-.exit{
-    cursor: pointer;
-    display: block;
-    float: right;
-    text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin: 5px;
-    height: 20px;
-    width: 20px;
-    background-color: red;
-    color: #fff;
-}
-#quit{
+.show{
     display: block;
 }
