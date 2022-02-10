@@ -21,7 +21,9 @@
             </div>
         </div>
         <div class="game-container">
-            <canvas id="game"></canvas>
+            <canvas id="game">
+                
+            </canvas>
         </div>
         <div class="container">
             <div class="eq"></div>
@@ -331,6 +333,35 @@
                 player.play("idle")
             }
         })
+        function removeProduct(e){
+            const item = document.querySelector(".elBag");
+            console.log(e);
+            e.target.closest("div").remove();
+            console.log("usunięto");
+        }
+        function addProduct(e){
+            const equipment = document.querySelector(".eq");
+            const productItem = document.createElement("div");
+            const removeButton = document.createElement("button");
+            productItem.className = "elBag";
+            removeButton.className = "removeButton";
+            removeButton.innerHTML = "DELETE";
+            productItem.innerHTML = e.path[0].innerHTML;
+            equipment.appendChild(productItem);
+            productItem.appendChild(removeButton);
+            removeButton.addEventListener("click", (e) =>{
+                removeProduct(e);
+            })
+        }
+        const product = document.querySelectorAll(".el");
+        const eq = document.querySelector(".eq");
+        product.forEach((e) =>{
+            e.addEventListener("click", (e) =>{
+                addProduct(e);
+            })
+        })
+
+
         add([
             pos(25, 24),
             text("TRIHORSE \nSHOPPING GAME", {
