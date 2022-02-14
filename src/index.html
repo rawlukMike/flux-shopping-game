@@ -35,7 +35,7 @@
     <script type="module">
         import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
         let products = [];
-        fetch("http://api.nbp.pl/api/exchangerates/tables/a/")
+        fetch("https://api.nbp.pl/api/exchangerates/tables/a/")
             .then(response => response.json())
             .then(data => products = data[0].rates);
         kaboom({
