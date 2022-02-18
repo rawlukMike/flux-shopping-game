@@ -1,0 +1,8 @@
+{
+    "id" : 1,
+    "name" : "samochodzik",
+    "color" : "czerwony",
+    "picture" : "src\\sprites\\samochod1.png",
+    "box-picture" : "src\\sprites\\samochod1_box.png",
+    "price" : 113.12
+}
