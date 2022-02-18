@@ -12,10 +12,25 @@
     <div class="main">
         <div class="container">
             <div id="shop-popup" class="hide">
-                <div class="exit"><span id="quit">X</span></div>
+                <div class="exit q"><span id="quit">X</span></div>
                 <div class="items">
 
                 </div>
+            </div>
+            <div id="final-popup" class="hide">
+                <div class="seller"></div>
+                <div class="exit qt-ex"><span id="quitTransaction">X</span></div>
+                <div class="items">
+                    <a href="https://www.trihorse.pl/contact" target="_blank">
+                        <div class="help"></div>
+                    </a>
+                    <a href="#" id="buy">
+                        <div class="buy"></div>
+                    </a>
+                </div>
+            </div>
+            <div id="final-buy" class="hide">
+                <div class="exit q"><span id="quitFinal">X</span></div>
             </div>
         </div>
         <div class="game-container">
@@ -52,12 +67,12 @@
                 "idle": {
                     from: 0,
                     to: 3,
-                    speed: 7,
+                    speed: 2,
                     loop: true,
                 }
             }
         });
-        loadSprite("player2", "sprites/main_sprite3.png", {
+        loadSprite("player2", "sprites/main_sprite.png", {
             sliceX: 21,
             anims: {
                 "idle": {
@@ -295,17 +310,44 @@
             seller.play("idle");
 
         const popup = document.getElementById("shop-popup");
-        const quit = document.getElementById("quit");
+        const popupFinal = document.getElementById("final-popup");
+        const quit = document.querySelectorAll(".exit");
+        const quitTransactionButton = document.getElementById("quitTransaction");
+        const buyButton = document.getElementById("buy");
+        const finalBuy = document.getElementById("final-buy");
 
-        quit.addEventListener("click", () =>{
-            hidePopup();
+        buyButton.addEventListener("click", () =>{
+            quitTransaction();
+            showFinal();
         })
 
+        quit.forEach((e) =>{
+            e.addEventListener("click", () =>{
+                hidePopup();
+                quitTransaction();
+                quitFinal();
+            })
+        })
+        quitTransactionButton.addEventListener("click", () =>{
+            quitTransaction();
+        })
+        function showFinal(){
+            finalBuy.className = "show";
+        }
+        function quitFinal(){
+            finalBuy.className = "hide";
+        }
         function showPopup(){
             popup.className = "show";
         }
         function hidePopup(){
             popup.className = "hide"; 
+        }
+        function endTransaction(){
+            popupFinal.className = "show";
+        }
+        function quitTransaction(){
+            popupFinal.className = "hide";
         }
 
     
@@ -320,6 +362,9 @@
 
         onCollide("player", "szafka", () =>{
                 showPopup();
+        })
+        onCollide("player", "lada", () =>{
+                endTransaction();//dodać
         })
 
 
