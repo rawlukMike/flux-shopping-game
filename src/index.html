@@ -13,6 +13,7 @@
         <div class="container">
             <div id="shop-popup" class="hide">
                 <div class="exit q"><span id="quit">X</span></div>
+                <div id="shop-header"></div>
                 <div class="items">
 
                 </div>
@@ -233,7 +234,7 @@
 	        pos(vec2(175,275)),
             solid(),
             area(),
-            "szafka",
+            "f-ball",
         ]);
         const mebel2 = add([
 	        sprite("furniture2"),
@@ -247,14 +248,14 @@
 	        pos(vec2(275,275)),
             solid(),
             area(),
-            "szafka",
+            "f-hedhog",
         ]);
         const mebel4 = add([
 	        sprite("furniture4"),
 	        pos(vec2(150,175)),
             solid(),
             area(),
-            "szafka",
+            "f-car",
         ]);
         const mebel5 = add([
 	        sprite("furniture5"),
@@ -271,7 +272,7 @@
 	        pos(vec2(300,150)),
             area(),
             solid(),
-            "szafka",
+            "f-money",
         ]);
         const flower = add([
 	        sprite("flower"),
@@ -315,6 +316,7 @@
         const quitTransactionButton = document.getElementById("quitTransaction");
         const buyButton = document.getElementById("buy");
         const finalBuy = document.getElementById("final-buy");
+        const popupHeader = document.getElementById("shop-header");
 
         buyButton.addEventListener("click", () =>{
             quitTransaction();
@@ -360,6 +362,35 @@
             }
         })
 
+        function moneyHeader(){
+            popupHeader.style.backgroundImage = "url('../src/sprites/header-money.png')";
+        }
+        function ballHeader(){
+            popupHeader.style.backgroundImage = "url('../src/sprites/header-ball.png')";
+        }
+        function hedhogHeader(){
+            popupHeader.style.backgroundImage = "url('../src/sprites/header-hedhog.png')";
+        }
+        function carHeader(){
+            popupHeader.style.backgroundImage = "url('../src/sprites/header-car.png')";
+        }
+
+        onCollide("player", "f-money", () =>{
+                moneyHeader();
+                showPopup();
+        })
+        onCollide("player", "f-ball", () =>{
+                ballHeader();
+                showPopup();
+        })
+        onCollide("player", "f-hedhog", () =>{
+                hedhogHeader();
+                showPopup();
+        })
+        onCollide("player", "f-car", () =>{
+                carHeader();
+                showPopup();
+        })
         onCollide("player", "szafka", () =>{
                 showPopup();
         })

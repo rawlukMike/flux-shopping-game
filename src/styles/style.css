@@ -40,7 +40,14 @@ html, body{
     margin-top: 200px;
     height: 500px;
     width: 700px;
-    background-image: url('../sprites/shop.png');
+    background-image: url('../sprites/popup-background.png');
+    background-size: 100% 100%;
+}
+#shop-header{
+    display: block;
+    width: 700px;
+    height: 107px;
+    background-image: url('..');
     background-size: 100% 100%;
 }
 #final-popup{
